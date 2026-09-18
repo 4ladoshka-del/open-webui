@@ -532,7 +532,7 @@ export const copyToClipboard = async (text, html = null, formatted = false) => {
 					return hljs.highlight(code, { language }).value;
 				}
 			};
-			marked.use(markedKatexExtension(options));
+			// marked.use(markedKatexExtension(options));
 			marked.use(markedExtension(options));
 			// DEVELOPER NOTE: Go to `$lib/components/chat/Messages/Markdown.svelte` to add extra markdown extensions for rendering.
 

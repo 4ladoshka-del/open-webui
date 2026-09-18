@@ -13,7 +13,7 @@
 		throwOnError: false
 	};
 
-	marked.use(markedKatexExtension(options));
+	// marked.use(markedKatexExtension(options));
 	marked.use(markedExtension(options));
 	marked.use(citationExtension(options));
 	marked.use(footnoteExtension(options));
