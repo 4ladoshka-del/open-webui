@@ -2,109 +2,194 @@
 
 @config '../tailwind.config.js';
 
+/* ==========================================================================
+   Монотема «Инженерный маркетинг»
+   Тёмная тема отключена на уровне варианта: dark:* утилиты в компонентах
+   остаются в разметке, но ищут класс .theme-off, который нигде не ставится.
+   ========================================================================== */
+@custom-variant dark (&:where(.theme-off, .theme-off *));
+
 @theme {
-	--font-sans:
-		var(--app-font-family, -apple-system), BlinkMacSystemFont, 'Inter', 'Vazirmatn', ui-sans-serif,
-		system-ui, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Helvetica Neue',
-		Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-	--font-primary: var(--font-sans);
-	--font-secondary: var(--font-sans);
+    /* --- Типографика ------------------------------------------------------ */
+    --font-sans:
+        var(--app-font-family, 'Inter'), -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+        'Segoe UI Variable Text', 'Segoe UI', 'Vazirmatn', Roboto, 'Helvetica Neue', Arial,
+        'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+    --font-primary: var(--font-sans);
+    --font-secondary: var(--font-sans);
+    --font-mono:
+        'JetBrainsMono', 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', 'Segoe UI Mono',
+        Menlo, Consolas, 'Liberation Mono', monospace;
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
 
-	--color-gray-50: oklch(0.98 0 0);
-	--color-gray-100: oklch(0.94 0 0);
-	--color-gray-200: oklch(0.92 0 0);
-	--color-gray-300: oklch(0.85 0 0);
-	--color-gray-400: oklch(0.77 0 0);
-	--color-gray-500: oklch(0.69 0 0);
-	--color-gray-600: oklch(0.51 0 0);
-	--color-gray-700: oklch(0.42 0 0);
-	--color-gray-800: oklch(0.32 0 0);
-	--color-gray-850: oklch(0.27 0 0);
-	--color-gray-900: oklch(0.2 0 0);
-	--color-gray-950: oklch(0.16 0 0);
+    /* --- Нейтральная шкала (slate) ---------------------------------------- */
+    --color-gray-50: #f8fafc;
+    --color-gray-100: #f1f5f9;
+    --color-gray-200: #e2e8f0; /* волосяная линия по умолчанию */
+    --color-gray-300: #cbd5e1;
+    --color-gray-400: #94a3b8; /* 2.6:1 — только иконки/графика, не текст */
+    --color-gray-500: #64748b; /* 4.8:1 — минимальный «тихий» текст */
+    --color-gray-600: #475569; /* 7.5:1 — вторичный текст */
+    --color-gray-700: #334155;
+    --color-gray-800: #1e293b;
+    --color-gray-850: #172033;
+    --color-gray-900: #0f172a; /* «чернила» */
+    --color-gray-950: #111111;
+
+    /* --- Фирменный оранжевый ---------------------------------------------- */
+    --color-brand-50: #fff4ec;
+    --color-brand-100: #ffe4d3;
+    --color-brand-200: #ffc7a6;
+    --color-brand-300: #ffa470;
+    --color-brand-400: #ff8038;
+    --color-brand-500: #ff5c00; /* фирменный */
+    --color-brand-600: #e04e00;
+    --color-brand-700: #b83f00; /* 5.6:1 — акцент в тексте на белом */
+    --color-brand-800: #8f3100;
+    --color-brand-900: #662300;
+    --color-brand-950: #3d1500;
+
+    /* --- Акцентный слот --------------------------------------------------- */
+    /* Ссылки, фокус-ринги, чекбоксы и прочие акценты в разметке Open WebUI
+       завязаны на blue-*: переназначаем шкалу на фирменный оранжевый,
+       чтобы не переписывать компоненты. */
+    --color-blue-50: #fff4ec;
+    --color-blue-100: #ffe4d3;
+    --color-blue-200: #ffc7a6;
+    --color-blue-300: #ffa470;
+    --color-blue-400: #ff8038;
+    --color-blue-500: #ff5c00;
+    --color-blue-600: #e04e00;
+    --color-blue-700: #b83f00;
+    --color-blue-800: #8f3100;
+    --color-blue-900: #662300;
+    --color-blue-950: #3d1500;
+
+    /* --- «Чернила» -------------------------------------------------------- */
+    /* bg-black в Open WebUI = основная кнопка. Делаем её #0F172A, а не #000. */
+    --color-black: #0f172a;
+    --color-ink: #0f172a;
+
+    /* --- Геометрия: жёсткие малые радиусы --------------------------------- */
+    --radius-xs: 2px;
+    --radius-sm: 2px;
+    --radius-md: 3px;
+    --radius-lg: 3px;
+    --radius-xl: 4px;
+    --radius-2xl: 4px;
+    --radius-3xl: 6px;
+
+    /* --- Тени: размытие вырезано полностью -------------------------------- */
+    --shadow-2xs: 0 0 #0000;
+    --shadow-xs: 0 0 #0000;
+    --shadow-sm: 0 0 #0000;
+    --shadow-md: 0 0 #0000;
+    --shadow-lg: 0 0 #0000;
+    --shadow-xl: 0 0 #0000;
+    --shadow-2xl: 0 0 #0000;
+    --inset-shadow-2xs: 0 0 #0000;
+    --inset-shadow-xs: 0 0 #0000;
+    --inset-shadow-sm: 0 0 #0000;
+    --drop-shadow-xs: 0 0 #0000;
+    --drop-shadow-sm: 0 0 #0000;
+    --drop-shadow-md: 0 0 #0000;
+    --drop-shadow-lg: 0 0 #0000;
+    --drop-shadow-xl: 0 0 #0000;
+    --drop-shadow-2xl: 0 0 #0000;
+
+    /* Единственная «тень» палитры — жёсткая чертёжная, без размытия */
+    --shadow-hard: 2px 2px 0 0 var(--color-gray-900);
+    --shadow-hard-accent: 2px 2px 0 0 var(--color-brand-500);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+/* --------------------------------------------------------------------------
+   База
+   -------------------------------------------------------------------------- */
 @layer base {
-	*,
-	::after,
-	::before,
-	::backdrop,
-	::file-selector-button {
-		border-color: var(--color-gray-200, currentColor);
-	}
-}
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
 
-@layer base {
-	html {
-		font-family: var(--font-sans);
-	}
+    html {
+        font-family: var(--font-sans);
+    }
 
-	pre {
-		font-family:
-			-apple-system, BlinkMacSystemFont, 'Inter', 'Vazirmatn', ui-sans-serif, system-ui, 'Segoe UI',
-			Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Helvetica Neue', Arial,
-			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-	}
+    body {
+        background: #fff;
+        color: var(--color-gray-900);
+    }
 
-	pre {
-		white-space: pre-wrap;
-	}
+    ::selection {
+        background: color-mix(in oklab, var(--color-brand-500) 18%, transparent);
+        color: var(--color-gray-900);
+    }
 
-	button {
-		@apply cursor-pointer;
-	}
+    /* код и предпросмотр — всегда монопространственный */
+    pre,
+    code,
+    kbd,
+    samp {
+        font-family: var(--font-mono);
+    }
 
-	input::placeholder,
-	textarea::placeholder {
-		color: theme(--color-gray-400);
-	}
+    pre {
+        white-space: pre-wrap;
+    }
 
-	input[type='checkbox'] {
-		@apply appearance-none size-3.5 align-middle bg-white border border-gray-300 rounded transition cursor-pointer focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:border-gray-600 self-center;
-		/* Center the custom mark */
-		display: inline-block;
-		position: relative;
-	}
+    button {
+        @apply cursor-pointer;
+    }
 
-	input[type='checkbox']:checked {
-		@apply bg-blue-600 border-blue-600;
-	}
+    /* плейсхолдеры: gray-500 вместо gray-400 (4.8:1 вместо 2.6:1) */
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--color-gray-500);
+    }
 
-	input[type='checkbox']:after {
-		content: '';
-		display: block;
-		width: 100%;
-		height: 100%;
-		/* Hide by default */
-		opacity: 0;
-		transition: opacity 0.2s;
-		position: absolute;
-		top: 0;
-		left: 0;
-		pointer-events: none;
-		/* SVG checkmark as background image */
-		background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 8l3 3l5-5"/></svg>')
-			center/80% no-repeat;
-	}
+    input[type='checkbox'] {
+        @apply size-3.5 appearance-none self-center rounded-xs border border-gray-300 bg-white align-middle transition cursor-pointer;
+        /* Center the custom mark */
+        display: inline-block;
+        position: relative;
+    }
 
-	input[type='checkbox']:checked:after {
-		opacity: 1;
-	}
+    input[type='checkbox']:checked {
+        background-color: var(--color-brand-500);
+        border-color: var(--color-brand-500);
+    }
+
+    input[type='checkbox']:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        /* Hide by default */
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        /* Галочка тёмная, а не белая: на #FF5C00 это 5.8:1 вместо 3.1:1 */
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 16 16" fill="none" stroke="%230F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 8l3 3l5-5"/></svg>')
+            center/80% no-repeat;
+    }
+
+    input[type='checkbox']:checked:after {
+        opacity: 1;
+    }
 }
 
 @layer utilities {
-	.font-primary,
-	.font-secondary {
-		font-family: var(--font-sans);
-	}
+    .font-primary,
+    .font-secondary {
+        font-family: var(--font-sans);
+    }
 }
 
 @custom-variant hover (&:hover);
